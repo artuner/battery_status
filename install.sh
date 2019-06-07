@@ -64,7 +64,7 @@ fi
 
 read -rsp $'Press any key to reboot...\n' -n1 key
 
-chmod 755 /home/pi/gbzattinymonitor/Pngview/pngview
+chmod 755 /home/pi/RetroPi-Battery-Status-Indicator/Pngview/pngview
 
 reboot
 
