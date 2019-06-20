@@ -12,7 +12,7 @@ INA219
 
 ###Software part
 
-Pythone
+Python
 
 ### Credits
 
