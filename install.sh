@@ -10,9 +10,9 @@ echo "Configuring Battery to start at boot..."
 
 #boot script should have the necessary lines(Battery, poweroff, backlight, buttons), then new ones should be added after a y/n question(joystick)
 # Insert battery script into rc.local before final 'exit 0'
-if ! grep -Fxq "python /home/pi/RetroPi-Battery-Status-Indicator/battery.py &" /etc/rc.local
+if ! grep -Fxq "python /home/pi/battery_status/battery.py &" /etc/rc.local
 then
-sed -i "s/^exit 0/python \/home\/pi\/RetroPi-Battery-Status-Indicator\/battery.py \&\\nexit 0/g" /etc/rc.local >/dev/null
+sed -i "s/^exit 0/python \/home\/pi\/battery_status\/battery.py \&\\nexit 0/g" /etc/rc.local >/dev/null
 fi
 
 
@@ -64,7 +64,7 @@ fi
 
 read -rsp $'Press any key to reboot...\n' -n1 key
 
-chmod 755 /home/pi/RetroPi-Battery-Status-Indicator/Pngview/pngview
+chmod 755 /home/pi/battery_status/Pngview/pngview
 
 reboot
 
