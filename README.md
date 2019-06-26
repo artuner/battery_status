@@ -6,11 +6,11 @@ Game Boy Raspberry Pi mode Battery Level based on INA219 using I2C communication
 
 sudo bash install.sh
 
-###Hardware part
+### Hardware part
 
 INA219 
 
-###Software part
+### Software part
 
 Python
 
