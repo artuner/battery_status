@@ -21,8 +21,8 @@ addr=ina.voltage()
 # Config
 warning = 0
 status = 0
-PNGVIEWPATH = "/home/pi/battery_status/Pngview/"
-ICONPATH = "/home/pi/battery_status/icons"
+PNGVIEWPATH = "/home/pi/battery-status/Pngview"
+ICONPATH = "/home/pi/battery-status/icons"
 CLIPS = 1
 REFRESH_RATE = 1
 VCC = 4.2
