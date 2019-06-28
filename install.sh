@@ -64,7 +64,7 @@ fi
 
 read -rsp $'Press any key to reboot...\n' -n1 key
 
-chmod 755 /home/pi/battery_status/Pngview/pngview
+chmod 0775 /home/pi/battery_status/Pngview/pngview
 
 reboot
 
