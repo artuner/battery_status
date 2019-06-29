@@ -66,10 +66,10 @@ while True:
 	sleep(2)
 	val3 = read()
 	ret = (float(val1+val2+val3)/3.0)
-	print ret
+	#print ret
 	if ret < VOLT0:
 		if status != 0:
-			print 
+			#print 
 			changeicon("0")
 			if CLIPS == 1:
 				os.system("/usr/bin/omxplayer --no-osd --layer 999999  " + ICONPATH + "/lowbattshutdown.mp4 --alpha 160;")
