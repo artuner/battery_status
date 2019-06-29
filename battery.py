@@ -24,7 +24,7 @@ status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 1
+REFRESH_RATE = 10
 VCC = 4.2
 VOLTFULL = 380
 VOLT100 = 375
@@ -32,8 +32,8 @@ VOLT75 = 355
 VOLT50 = 330
 VOLT25 = 310
 VOLT0 =  270
-
 width = 560
+
 def read():
         return int(ina.voltage()*100)
         #sleep(0.3)
