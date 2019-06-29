@@ -27,18 +27,15 @@ CLIPS = 1
 REFRESH_RATE = 10
 VCC = 4.2
 VOLTFULL = 385
-VOLT100 = 365
-VOLT75 = 345
-VOLT50 = 330
-VOLT25 = 310
+VOLT100 = 360
+VOLT75 = 340
+VOLT50 = 320
+VOLT25 = 300
 VOLT0 =  270
 width = 560
 
 def read():
         return int(ina.voltage()*100)
-        #sleep(0.3)
-        #b = bus.read_byte(0x13)
-        #return b>>8+a
 
 def convertVoltage(val):
     global VCC
