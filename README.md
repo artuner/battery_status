@@ -4,7 +4,18 @@ Game Boy Raspberry Pi mode Battery Level based on INA219 using I2C communication
 
 ## Installation
 
-sudo bash install.sh
+sudo apt-get install i2c-tools
+
+For check work test i2C
+sudo i2cdetect -y 1
+
+
+sudo apt-get update
+
+sudo apt-get install build-essential python-pip python-dev python-smbus git
+
+sudo pip install pi-ina219
+
 
 ### Hardware part
 
@@ -17,6 +28,11 @@ Python
 ### Credits
 
 SergioPoverony
+
+PNGVIEW
+
+https://github.com/AndrewFromMelbourne/raspidmx/tree/master/pngview
+
 
 Thank to
 
