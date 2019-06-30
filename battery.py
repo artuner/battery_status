@@ -81,7 +81,7 @@ while True:
 			changeicon("25")
 			if warning != 1:
 				if CLIPS == 1:
-					os.system("/usr/bin/omxplayer --no-osd --layer 999999  " + ICONPATH + "/lowbattalert.mp4 --alpha 160")
+					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				warning = 1
 			status = 25
 	elif ret < VOLT50:
