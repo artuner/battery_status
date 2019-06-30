@@ -69,17 +69,22 @@ while True:
 			#print 
 			changeicon("0")
 			if CLIPS == 1:
-				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav;")
+				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				voltcheck = (read())
 				if voltcheck <= VOLT0:
 					#os.system("sudo shutdown -h now")
+					warning = 1
 				else:
 					warning = 0
 		status = 0
 	elif ret < VOLT25:
 		if status != 25:
 			changeicon("25")
-		status = 25
+			if warning != 1:
+				if CLIPS == 1:
+					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+				warning = 1
+			status = 25
 	elif ret < VOLT50:
 		if status != 50:
 			changeicon("50")
