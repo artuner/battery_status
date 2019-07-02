@@ -38,7 +38,7 @@ VOLT100 = 380
 VOLT75 = 360
 VOLT50 = 340
 VOLT25 = 320
-VOLT0 =  290
+VOLT0 =  280
 
 
 #position and resolution
@@ -67,7 +67,7 @@ def changeicon(percent):
             killid = num
             os.system("sudo kill " + killid)
 
-os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 5 " + ICONPATH + "/blank.png &")
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
 	val1 = read()
@@ -85,8 +85,7 @@ while True:
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				voltcheck = (read())
 				if voltcheck <= VOLT0:
-					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav &")
-					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-64)+ " -y " + str(int(resolution[1])/2-64) + " " + ICONPATH + "/alert-outline-red.png &")
+					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
 					os.system("sleep 60 && sudo poweroff &")
 					warning = 1
 				else:
