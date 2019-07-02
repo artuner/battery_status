@@ -32,7 +32,13 @@ VOLT75 = 360
 VOLT50 = 340
 VOLT25 = 320
 VOLT0 =  270
-width = 560z
+
+
+#position and resolution
+fbfile="tvservice -s"
+resolution=re.search("(\d{3,}x\d{3,})", subprocess.check_output(fbfile.split()).decode().rstrip()).group().split('x')
+dpi=36
+width = str(int(resolution[0]) - dpi * 3
 
 def read():
         return int(ina.voltage()*100)
