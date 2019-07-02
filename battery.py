@@ -71,9 +71,9 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 5 " + ICONPATH + "/bl
 
 while True:
 	val1 = read()
-	sleep(2)
+	sleep(3)
 	val2 = read()
-	sleep(2)
+	sleep(3)
 	val3 = read()
 	ret = (float(val1+val2+val3)/3.0)
 	#print ret
