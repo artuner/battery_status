@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+#by SergioPoverony and etc
+#for INA219 battery status in gameboy pi mode
+#gpl2 and etc
 from smbus import SMBus
 from time import sleep
 import os
