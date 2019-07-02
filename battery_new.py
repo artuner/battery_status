@@ -1,6 +1,9 @@
 from smbus import SMBus
 from time import sleep
 import os
+import re
+import subprocess
+
 from subprocess import check_output
 
 bus = SMBus(1)
@@ -38,7 +41,7 @@ VOLT0 =  270
 fbfile="tvservice -s"
 resolution=re.search("(\d{3,}x\d{3,})", subprocess.check_output(fbfile.split()).decode().rstrip()).group().split('x')
 dpi=36
-width = str(int(resolution[0]) - dpi * 3
+width = (int(resolution[0]) - dpi * 2)
 
 def read():
         return int(ina.voltage()*100)
@@ -78,6 +81,7 @@ while True:
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				voltcheck = (read())
 				if voltcheck <= VOLT0:
+					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x"+ str(int(resolution[0])/2-64)+ "-y" + str(int(resolution[0])/2-64) + ICONPATH + "/blank.png &")
 					#os.system("sudo shutdown -h now")
 					warning = 1
 				else:
