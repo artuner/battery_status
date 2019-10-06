@@ -13,14 +13,14 @@ status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 2
+REFRESH_RATE = 10
 VCC = 4.2
 VOLTFULL = 400
-VOLT100 = 375
-VOLT75 = 360
-VOLT50 = 345
+VOLT100 = 385
+VOLT75 = 375
+VOLT50 = 355
 VOLT25 = 330
-VOLT0 = 300
+VOLT0 = 322
 
 #position and resolution
 fbfile="tvservice -s"
@@ -57,32 +57,32 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5
 while True:
         val1 = read()
         val1 = float(val1.strip())
-        print val1
+        #print val1
         val2 = read()
         val2 = float(val2.strip())
-        print val2
+        #print val2
         val3 = read()
         val3 = float(val3.strip())
-        print val3
+        #print val3
         val4 = read()
         val4 = float(val4.strip())
-        print val4
+        #print val4
         val5 = read()
         val5 = float(val5.strip())
-        print val5
+        #print val5
         val6 = read()
         val6 = float(val6.strip())
-        print val6
+        #print val6
         val7 = read()
         val7 = float(val7.strip())
-        print val7
+        #print val7
         val8 = read()
         val8 = float(val8.strip())
-        print val8
+        #print val8
         val9 = read()
         val9 = float(val9.strip())
-        print val9
-        ret = (float(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9)
+        #print val9
+        ret = (float(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0)
 	print ret
 	if ret < VOLT0:
 		if status != 0:
