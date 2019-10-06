@@ -38,7 +38,7 @@ VOLT100 = 380
 VOLT75 = 365
 VOLT50 = 345
 VOLT25 = 330
-VOLT0 =  300
+VOLT0 =  315
 
 
 #position and resolution
