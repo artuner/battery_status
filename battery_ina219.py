@@ -25,13 +25,13 @@ ina.configure(ina.RANGE_16V)
 addr=ina.voltage()
 
 
-# Config
+#Config
 warning = 0
 status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 2
+REFRESH_RATE = 10
 VCC = 4.2
 VOLTFULL = 400
 VOLT100 = 380
@@ -71,11 +71,15 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5
 
 while True:
 	val1 = read()
-	sleep(3)
+	sleep(1)
 	val2 = read()
-	sleep(3)
+	sleep(1)
 	val3 = read()
-	ret = (float(val1+val2+val3)/3.0)
+	sleep(1)
+	val4 = read()
+	sleep(1)
+	val5 = read()
+	ret = (float(val1+val2+val3+val4+val5)/5.0)
 	#print ret
 	if ret < VOLT0:
 		if status != 0:
