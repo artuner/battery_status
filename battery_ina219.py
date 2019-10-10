@@ -53,10 +53,8 @@ def read():
     ina.sleep()
     return int(ina.voltage()*100)
 
-def wifi_state
-	f = open(wifi_carrier, "r")
-	carrier_state = int(f.read().rstrip())
-	f.close()
+def wifi_state():
+
 	
 def changeicon(percent):
     i = 0
@@ -76,17 +74,20 @@ def wifi_icon(state):
     os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_" + state + ".png &")
     out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
     numsw = out.split('\n')
-    for num in nums:
+    for num1 in numsw:
         k += 1
         if k == 1:
-            killid = num
+            killid = num1
             os.system("sudo kill " + killid)
 
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 
 while True:
-	if wifi_state == 1:
+	f = open(wifi_carrier, "r")
+	carrier_state = int(f.read().rstrip())
+	f.close()
+	if carrier_state == 1:
 		wifi_icon("on")
 	else:
 		wifi_icon("off")
