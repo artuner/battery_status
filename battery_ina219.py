@@ -38,7 +38,6 @@ VOLT0 =  322
 #Wifi state
 
 wifi_state = "/sys/class/net/wlan0/carrier" # 1 wifi connected, 0 or empty - disconnected and/or ifdown
-wifi_carrier = int(wifi_state)
 
 #position and resolution
 fbfile="tvservice -s"
@@ -69,7 +68,7 @@ def changeicon(percent):
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	if wifi_carrier == "1":
+	if wifi_state == "1":
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
 	else:	
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_off.png &")
