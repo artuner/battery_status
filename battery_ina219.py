@@ -69,11 +69,11 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5
 
 while True:
 	f = open(wifi_carrier, "r")
-    carrier_state = int(f.read().rstrip())
-    f.close()
-    if carrier_state == 1:
-      os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
-    elif carrier_state == 0:
+	carrier_state = int(f.read().rstrip())
+	f.close()
+	if carrier_state == 1:
+		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
+	elif carrier_state == 0:
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_off.png &")
 	val1 = read()
 	sleep(1)
