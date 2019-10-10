@@ -18,7 +18,7 @@ from ina219 import INA219, DeviceRangeError
 from time import sleep
 
 SHUNT_OHMS = 0.1
-MAX_EXPECTED_AMPS = 1.0
+MAX_EXPECTED_AMPS = 3.0
 
 #Config
 warning = 0
