@@ -37,7 +37,7 @@ VOLT0 =  322
 
 #Wifi state
 
-wifi_state = "/sys/class/net/wlan0/carrier" # 1 wifi connected, 0 or empty - disconnected and/or ifdown
+wifi_carrier = "/sys/class/net/wlan0/carrier" # 1 wifi connected, 0 or empty - disconnected and/or ifdown
 
 #position and resolution
 fbfile="tvservice -s"
@@ -52,6 +52,12 @@ def read():
     #ina.configure(ina.RANGE_16V)
     ina.sleep()
     return int(ina.voltage()*100)
+
+def wifi():
+	f = open(wifi_carrier, "r")
+    carrier_state = int(f.read().rstrip())
+    f.close()
+	return carrier_state
 
 def changeicon(percent):
     i = 0
@@ -68,7 +74,7 @@ def changeicon(percent):
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	if wifi_state == "1":
+	if wifi == "1":
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
 	else:	
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_off.png &")
