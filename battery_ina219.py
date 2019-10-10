@@ -18,7 +18,7 @@ from ina219 import INA219, DeviceRangeError
 from time import sleep
 
 SHUNT_OHMS = 0.1
-MAX_EXPECTED_AMPS = 0.2
+MAX_EXPECTED_AMPS = 0.6
 
 #Config
 warning = 0
@@ -30,10 +30,10 @@ REFRESH_RATE = 10
 VCC = 4.2
 VOLTFULL = 400
 VOLT100 = 385
-VOLT75 = 375
+VOLT75 = 360
 VOLT50 = 355
-VOLT25 = 330
-VOLT0 =  322
+VOLT25 = 335
+VOLT0 =  320
 
 
 #position and resolution
@@ -61,7 +61,7 @@ def changeicon(percent):
             killid = num
             os.system("sudo kill " + killid)
 
-os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
+#os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
 	val1 = read()
@@ -74,13 +74,13 @@ while True:
 	sleep(0.16)
 	val5 = read()
 	sleep(0.16)
-	val6 = read()	
+	val6 = read()
 	sleep(0.16)
-	val7 = read()	
+	val7 = read()
 	sleep(0.16)
-	val8 = read()	
+	val8 = read()
 	sleep(0.16)
-	val9 = read()	
+	val9 = read()
 	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0)
 	#print ret
 	if ret < VOLT0:
@@ -108,6 +108,7 @@ while True:
 	elif ret < VOLT50:
 		if status != 50:
 			changeicon("50")
+			warning = 0
 		status = 50
 	elif ret < VOLT75:
 		if status != 75:
