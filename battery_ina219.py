@@ -18,7 +18,7 @@ from ina219 import INA219, DeviceRangeError
 from time import sleep
 
 SHUNT_OHMS = 0.1
-MAX_EXPECTED_AMPS = 3.0
+MAX_EXPECTED_AMPS = 0.2
 
 #Config
 warning = 0
@@ -35,16 +35,12 @@ VOLT50 = 355
 VOLT25 = 330
 VOLT0 =  322
 
-#Wifi state
-
-wifi_carrier = "/sys/class/net/wlan0/carrier" # 1 wifi connected, 0 or empty - disconnected and/or ifdown
 
 #position and resolution
 fbfile="tvservice -s"
 resolution=re.search("(\d{3,}x\d{3,})", subprocess.check_output(fbfile.split()).decode().rstrip()).group().split('x')
 dpi=36
 width = (int(resolution[0]) - dpi * 2)
-width_wifi = (int(resolution[0]) - dpi * 2)-40
 
 def read():
     ina = INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS)
@@ -52,22 +48,11 @@ def read():
     #ina.configure(ina.RANGE_16V)
     ina.sleep()
     return int(ina.voltage()*100)
-	
-def wifi_state():
-	f = open(wifi_carrier, "r")
-	#carrier_state = int(f.read().rstrip())
-	return int(f.read().rstrip())
-	f.close()
-	
+
 def changeicon(percent):
-    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width) + " -y 5 " + ICONPATH + "/battery" + percent + ".png &")
-
-def wifi_icon(state):
-    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_" + state + ".png &")
-
-def resetpng():
-	i = 0
+    i = 0
     killid = 0
+    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width) + " -y 5 " + ICONPATH + "/battery" + percent + ".png &")
     out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
     nums = out.split('\n')
     for num in nums:
@@ -75,22 +60,28 @@ def resetpng():
         if i == 1:
             killid = num
             os.system("sudo kill " + killid)
-			
-#os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	resetpng
-	if wifi_state == 1:
-		wifi_icon("on")
-	else:
-		wifi_icon("off")
 	val1 = read()
+	sleep(0.16)
 	val2 = read()
+	sleep(0.16)
 	val3 = read()
+	sleep(0.16)
 	val4 = read()
+	sleep(0.16)
 	val5 = read()
-	ret = (float(val1+val2+val3+val4+val5)/5.0)
+	sleep(0.16)
+	val6 = read()	
+	sleep(0.16)
+	val7 = read()	
+	sleep(0.16)
+	val8 = read()	
+	sleep(0.16)
+	val9 = read()	
+	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0)
 	#print ret
 	if ret < VOLT0:
 		if status != 0:
