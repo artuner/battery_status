@@ -67,14 +67,29 @@ def changeicon(percent):
 
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
+def wifi_state(state):
+    i = 0
+    killid = 0
+    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_" + state + ".png &")
+    out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
+    nums = out.split('\n')
+    for num in nums:
+        i += 1
+        if i == 1:
+            killid = num
+            os.system("sudo kill " + killid)
+
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
+
+
 while True:
 	f = open(wifi_carrier, "r")
 	carrier_state = int(f.read().rstrip())
 	f.close()
 	if carrier_state == 1:
-		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
+		wifi_state("on")
 	elif carrier_state == 0:
-		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_off.png &")
+		wifi_state("off")
 	val1 = read()
 	sleep(1)
 	val2 = read()
