@@ -44,7 +44,7 @@ fbfile="tvservice -s"
 resolution=re.search("(\d{3,}x\d{3,})", subprocess.check_output(fbfile.split()).decode().rstrip()).group().split('x')
 dpi=36
 width = (int(resolution[0]) - dpi * 2)
-width_wifi = (int(resolution[0]) - dpi * 2)-32
+width_wifi = (int(resolution[0]) - dpi * 2)-40
 
 def read():
     ina = INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS)
