@@ -60,9 +60,14 @@ def wifi_state():
 	f.close()
 	
 def changeicon(percent):
-    i = 0
-    killid = 0
     os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width) + " -y 5 " + ICONPATH + "/battery" + percent + ".png &")
+
+def wifi_icon(state):
+    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_" + state + ".png &")
+
+def resetpng():
+	i = 0
+    killid = 0
     out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
     nums = out.split('\n')
     for num in nums:
@@ -70,35 +75,20 @@ def changeicon(percent):
         if i == 1:
             killid = num
             os.system("sudo kill " + killid)
-
-def wifi_icon(state):
-    k = 0
-    killid = 0
-    os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_" + state + ".png &")
-    out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
-    numsw = out.split('\n')
-    for num1 in numsw:
-        k += 1
-        if k == 1:
-            killid = num1
-            os.system("sudo kill " + killid)
-
+			
 #os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 
 while True:
+	resetpng
 	if wifi_state == 1:
 		wifi_icon("on")
 	else:
 		wifi_icon("off")
 	val1 = read()
-	sleep(1)
 	val2 = read()
-	sleep(1)
 	val3 = read()
-	sleep(1)
 	val4 = read()
-	sleep(1)
 	val5 = read()
 	ret = (float(val1+val2+val3+val4+val5)/5.0)
 	#print ret
