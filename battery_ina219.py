@@ -18,12 +18,7 @@ from ina219 import INA219, DeviceRangeError
 from time import sleep
 
 SHUNT_OHMS = 0.1
-MAX_EXPECTED_AMPS = 2.0
-ina = INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS)
-ina.configure(ina.RANGE_16V)
-
-addr=ina.voltage()
-
+MAX_EXPECTED_AMPS = 1.0
 
 #Config
 warning = 0
@@ -48,12 +43,11 @@ dpi=36
 width = (int(resolution[0]) - dpi * 2)
 
 def read():
-        return int(ina.voltage()*100)
-
-def convertVoltage(val):
-    global VCC
-    voltage = float(val) * (VCC / 255.0)
-    return voltage
+    ina = INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS)
+    ina.configure(ina.RANGE_16V)
+    #ina.configure(ina.RANGE_16V)
+    ina.sleep()
+    return int(ina.voltage()*100)
 
 def changeicon(percent):
     i = 0

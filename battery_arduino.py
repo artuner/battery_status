@@ -35,11 +35,6 @@ def read():
        ser.close()
        exit()
 
-def convertVoltage(val):
-    global VCC
-    voltage = float(val) * (VCC / 255.0)
-    return voltage
-
 def changeicon(percent):
     i = 0
     killid = 0
