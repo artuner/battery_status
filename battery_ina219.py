@@ -69,7 +69,7 @@ def changeicon(percent):
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	if wifi_carrier == 1:
+	if wifi_carrier == "1":
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_on.png &")
 	else:	
 		os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width_wifi) + " -y 5 " + ICONPATH + "/wifi_off.png &")
