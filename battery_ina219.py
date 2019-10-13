@@ -54,7 +54,7 @@ def changeicon(percent):
             killid = num
             os.system("sudo kill " + killid)
 
-#os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
 	val1 = read()

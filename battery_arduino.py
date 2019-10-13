@@ -1,17 +1,20 @@
-#!/usr/bin/python3y by SergioPoverony and etc for INA219 battery status 
-#in gameboy pi mode gpl2 and etc
+#!/usr/bin/python3
+#by SergioPoverony and etc
+#for INA219 battery status in gameboy pi mode
+#GPL2 and etc
 from time import sleep
 import os
 import re
 import subprocess
-import serial
-import signal
 from subprocess import check_output
-from time import sleep
+import serial
 
-# Config
+
+
+#Config
 warning = 0
 status = 0
+SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
@@ -23,6 +26,7 @@ VOLT75 = 376
 VOLT50 = 363
 VOLT25 = 350
 VOLT0 =  322
+
 
 #position and resolution
 fbfile="tvservice -s"
@@ -44,7 +48,7 @@ def changeicon(percent):
     i = 0
     killid = 0
     os.system(PNGVIEWPATH + "/pngview -b 0 -l 30001" + " -x " + str(width) + " -y 5 " + ICONPATH + "/battery" + percent + ".png &")
-    out = check_output("ps aux | grep pngview | awk '{ print $2 }'",shell=True)
+    out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
     nums = out.split('\n')
     for num in nums:
         i += 1
@@ -55,29 +59,28 @@ def changeicon(percent):
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-        val1 = read()
-        sleep(0.2)
-        val2 = read()
-        sleep(0.2)
-        val3 = read()
-        sleep(0.2)
-        val4 = read()
-        sleep(0.2)
-        val5 = read()
-        sleep(0.2)
-        val6 = read()
-        sleep(0.2)
-        val7 = read()
-        sleep(0.2)
-        val8 = read()
-        sleep(0.2)
-        val9 = read()
-        sleep(0.2)
-        ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 0.10
+	val1 = read()
+	sleep(0.16)
+	val2 = read()
+	sleep(0.16)
+	val3 = read()
+	sleep(0.16)
+	val4 = read()
+	sleep(0.16)
+	val5 = read()
+	sleep(0.16)
+	val6 = read()
+	sleep(0.16)
+	val7 = read()
+	sleep(0.16)
+	val8 = read()
+	sleep(0.16)
+	val9 = read()
+	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 0.10
 	#print ret
 	if ret < VOLT0:
 		if status != 0:
-			#print
+			#print 
 			changeicon("0")
 			if CLIPS == 1:
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
@@ -100,6 +103,7 @@ while True:
 	elif ret < VOLT50:
 		if status != 50:
 			changeicon("50")
+			warning = 0
 		status = 50
 	elif ret < VOLT75:
 		if status != 75:
