@@ -35,14 +35,14 @@ dpi=36
 width = (int(resolution[0]) - dpi * 2)
 
 def read():
-       global VCC
-       ser = serial.Serial('/dev/ttyACM0', 9600)
-       b = ser.readline()
-       numV = float(b.strip())
-       compl = float(numV) * (VCC / 420.0)
-       return compl
-       ser.close()
-       exit()
+    global VCC
+    ser = serial.Serial('/dev/ttyACM0', 9600)
+    b = ser.readline()
+    numV = float(b.strip())
+    compl = float((numV) * (VCC / 420.0)) * 100
+    return compl
+    ser.close()
+    exit()
 
 def changeicon(percent):
     i = 0
@@ -76,11 +76,11 @@ while True:
 	val8 = read()
 	sleep(0.16)
 	val9 = read()
-	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 0.10
+	ret = (float(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 10
 	#print ret
 	if ret < VOLT0:
 		if status != 0:
-			#print 
+			#print
 			changeicon("0")
 			if CLIPS == 1:
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
