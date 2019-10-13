@@ -1,39 +1,31 @@
 #!/usr/bin/python3
 #by SergioPoverony and etc
 #for INA219 battery status in gameboy pi mode
-#gpl2 and etc
-from smbus import SMBus
+#GPL2 and etc
 from time import sleep
 import os
 import re
 import subprocess
-
 from subprocess import check_output
-
-bus = SMBus(1)
-addr = 0x13
-
 from ina219 import INA219, DeviceRangeError
 
-from time import sleep
 
-SHUNT_OHMS = 0.1
-MAX_EXPECTED_AMPS = 0.6
 
 #Config
 warning = 0
 status = 0
+SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 10
+REFRESH_RATE = 3.0
 VCC = 4.2
-VOLTFULL = 400
-VOLT100 = 385
-VOLT75 = 360
-VOLT50 = 355
-VOLT25 = 335
-VOLT0 =  320
+VOLTFULL = 410
+VOLT100 = 380
+VOLT75 = 376
+VOLT50 = 363
+VOLT25 = 350
+VOLT0 =  322
 
 
 #position and resolution
@@ -43,11 +35,12 @@ dpi=36
 width = (int(resolution[0]) - dpi * 2)
 
 def read():
-    ina = INA219(SHUNT_OHMS, MAX_EXPECTED_AMPS)
-    ina.configure(ina.RANGE_16V)
-    #ina.configure(ina.RANGE_16V)
+    ina = INA219(SHUNT_OHMS)
+    ina.configure(ina.RANGE_16V,ina.GAIN_AUTO)
     ina.sleep()
-    return int(ina.voltage()*100)
+    voltage = round(int(ina.voltage()*100))
+    return voltage
+
 
 def changeicon(percent):
     i = 0
