@@ -76,7 +76,7 @@ while True:
 	val8 = read()
 	sleep(0.16)
 	val9 = read()
-	ret = (float(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 10
+	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 10
 	#print ret
 	if ret < VOLT0:
 		if status != 0:

@@ -61,10 +61,7 @@ fi
 #cp -p -r -f  /boot/battery/theme/scripts /home/pi/RetroPie/othermod
 #cp -f /boot/battery/theme/es_systems.cfg /etc/emulationstation/es_systems.cfg
 #cp -p -r -f  /boot/battery/theme/system /etc/emulationstation/themes/carbon/othermod
-
-read -rsp $'Press any key to reboot...\n' -n1 key
-
 chmod 0775 /home/pi/battery_status/pngview
-
+read -rsp $'Press any key to reboot...\n' -n1 key
 reboot
 
