@@ -37,7 +37,7 @@ width = (int(resolution[0]) - dpi * 2)
 def read():
     ina = INA219(SHUNT_OHMS)
     ina.configure(ina.RANGE_16V,ina.GAIN_AUTO)
-    ina.sleep()
+    #ina.sleep()
     voltage = round(int(ina.voltage()*100))
     return voltage
 
