@@ -11,13 +11,13 @@ import serial
 import signal
 
 #Config
-warning = 0
-status = 0
+warning = 1
+status = 1
 SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
-CLIPS = 0
-REFRESH_RATE = 30
+CLIPS = 1
+REFRESH_RATE = 3
 VCC = 4.2
 VOLTFULL = 410
 VOLT100 = 380
@@ -77,24 +77,25 @@ while True:
 	val9 = read()
 	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 10
 	print ret
+	print warning
 	if ret < VOLT0:
 		if status != 0:
 			#print
 			changeicon("0")
 			if CLIPS == 1:
-				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				voltcheck = (read())
 				if voltcheck <= VOLT0:
-					if warning = 0
-					warning = 1
-				elif
-					if warning = 1
-					warning = 2	
-				else:
-					if warning = 2
-					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
-					os.system("sleep 60 && sudo poweroff &")
-					
+					if warning == 0:
+						os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+						warning = 1
+					elif warning == 1:
+						os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+						warning = 2
+					elif warning == 2:
+						os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+						os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
+						os.system("sleep 60 && sudo poweroff &")
+		status = 0
 	elif ret < VOLT25:
 		if status != 25:
 			changeicon("25")
