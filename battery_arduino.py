@@ -8,8 +8,7 @@ import re
 import subprocess
 from subprocess import check_output
 import serial
-
-
+import signal
 
 #Config
 warning = 0
@@ -17,15 +16,15 @@ status = 0
 SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
-CLIPS = 1
-REFRESH_RATE = 3.0
+CLIPS = 0
+REFRESH_RATE = 30
 VCC = 4.2
 VOLTFULL = 410
 VOLT100 = 380
 VOLT75 = 376
-VOLT50 = 363
-VOLT25 = 350
-VOLT0 =  322
+VOLT50 = 352
+VOLT25 = 338
+VOLT0 =  319
 
 
 #position and resolution
@@ -39,8 +38,8 @@ def read():
     ser = serial.Serial('/dev/ttyACM0', 9600)
     b = ser.readline()
     numV = float(b.strip())
-    compl = float((numV) * (VCC / 420.0)) * 100
-    return compl
+    #compl = float(numV)
+    return numV
     ser.close()
     exit()
 
@@ -77,7 +76,7 @@ while True:
 	sleep(0.16)
 	val9 = read()
 	ret = (round(val1+val2+val3+val4+val5+val6+val7+val8+val9)/9.0) + 10
-	#print ret
+	print ret
 	if ret < VOLT0:
 		if status != 0:
 			#print
@@ -86,24 +85,24 @@ while True:
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				voltcheck = (read())
 				if voltcheck <= VOLT0:
+					if warning = 0
+					warning = 1
+				elif
+					if warning = 1
+					warning = 2	
+				else:
+					if warning = 2
 					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
 					os.system("sleep 60 && sudo poweroff &")
-					warning = 1
-				else:
-					warning = 0
-		status = 0
+					
 	elif ret < VOLT25:
 		if status != 25:
 			changeicon("25")
-			if warning != 1:
-				if CLIPS == 1:
-					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-				warning = 1
-			status = 25
+			warning = 0
+		status = 25
 	elif ret < VOLT50:
 		if status != 50:
 			changeicon("50")
-			warning = 0
 		status = 50
 	elif ret < VOLT75:
 		if status != 75:
