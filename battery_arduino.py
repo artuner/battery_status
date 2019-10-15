@@ -11,8 +11,8 @@ import serial
 import signal
 
 #Config
-warning = 1
-status = 1
+warning = 0
+status = 0
 SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
