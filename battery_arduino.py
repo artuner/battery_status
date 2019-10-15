@@ -13,6 +13,7 @@ import signal
 #Config
 warning = 0
 status = 0
+debug = 1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
@@ -31,6 +32,12 @@ fbfile="tvservice -s"
 resolution=re.search("(\d{3,}x\d{3,})", subprocess.check_output(fbfile.split()).decode().rstrip()).group().split('x')
 dpi=36
 width = (int(resolution[0]) - dpi * 2)
+
+def readSerial():
+    ser.write('1')
+    time.sleep(.3)
+    x = (ser.readline())
+    return x
 
 def read():
     ser = serial.Serial('/dev/ttyACM0', 9600)
@@ -54,7 +61,24 @@ def changeicon(percent):
 
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
+
+# Check Serial Port Availability
+
+while port == 0:
+    for x in range(0, 3):
+        try:
+            ser = serial.Serial('/dev/ttyACM' + str(x), 9600)
+        except serial.SerialException:
+            if debug == 1:
+                print('Serial Port ACM' + str(x) + ' Not Found')
+            time.sleep(1)
+        else:
+            port = 1
+            break
+		
+		
 while True:
+	print readSerial
 	val1 = read()
 	sleep(0.16)
 	val2 = read()
