@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #by SergioPoverony and etc
-#for INA219 battery status in gameboy pi mode
+#for Arduino 5V battery status in gameboy pi mode
 #GPL2 and etc
 from time import sleep
 import os
@@ -13,15 +13,14 @@ import signal
 #Config
 warning = 0
 status = 0
-SHUNT_OHMS = .1
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
 REFRESH_RATE = 3
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 380
-VOLT75 = 376
+VOLT100 = 376
+VOLT75 = 368
 VOLT50 = 352
 VOLT25 = 338
 VOLT0 =  319
@@ -34,13 +33,11 @@ dpi=36
 width = (int(resolution[0]) - dpi * 2)
 
 def read():
-    global VCC
     ser = serial.Serial('/dev/ttyACM0', 9600)
     b = ser.readline()
     numV = float(b.strip())
-    #compl = float(numV)
-    return numV
     ser.close()
+    return numV	
     exit()
 
 def changeicon(percent):
