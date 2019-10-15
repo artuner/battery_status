@@ -60,23 +60,22 @@ while True:
 	ret = read()
 	print warning
 	if ret < VOLT0:
-		if status != 0:
-			print "status"
-			changeicon("0")
-			if CLIPS == 1:
-				if warning == 0:
-					print "warning 1"
-					warning = 1
-					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-				elif warning == 1:
-					print "warning 2"
-					warning = 2
-					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-				elif warning == 2:
-					print "Power Off"
-					os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-					os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
-					os.system("sleep 60 && sudo poweroff &")
+		print "status"
+		changeicon("0")
+		if CLIPS == 1:
+			if warning == 0:
+				print "warning 1"
+				warning = 1
+				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+			elif warning == 1:
+				print "warning 2"
+				warning = 2
+				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+			elif warning == 2:
+				print "Power Off"
+				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+				os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
+				os.system("sleep 60 && sudo poweroff &")
 		status = 0
 	elif ret < VOLT25:
 		if status != 25:
