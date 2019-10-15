@@ -19,11 +19,11 @@ CLIPS = 1
 REFRESH_RATE = 3
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 376
-VOLT75 = 368
-VOLT50 = 352
-VOLT25 = 338
-VOLT0 =  319
+VOLT100 = 366
+VOLT75 = 358
+VOLT50 = 340
+VOLT25 = 326
+VOLT0 =  310
 
 #position and resolution
 fbfile="tvservice -s"
@@ -60,6 +60,7 @@ while True:
 	ret = read()
 	print warning
 	if ret < VOLT0:
+		#if status != 0:
 		print "status"
 		changeicon("0")
 		if CLIPS == 1:
@@ -75,7 +76,7 @@ while True:
 				print "Power Off"
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
-				os.system("sleep 60 && sudo poweroff &")
+				#os.system("sleep 60 && sudo poweroff &")
 		status = 0
 	elif ret < VOLT25:
 		if status != 25:
