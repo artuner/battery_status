@@ -76,7 +76,7 @@ while True:
 				print "Power Off"
 				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
 				os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
-				#os.system("sleep 60 && sudo poweroff &")
+				os.system("sleep 60 && sudo poweroff &")
 		status = 0
 	elif ret < VOLT25:
 		if status != 25:
