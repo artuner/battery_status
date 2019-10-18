@@ -12,18 +12,18 @@ import serial
 
 #Config
 warning = 0
-status = -1
+status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 10m
+REFRESH_RATE = 1200
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 366
-VOLT75 = 358
+VOLT100 = 368
+VOLT75 = 352
 VOLT50 = 340
 VOLT25 = 326
-VOLT0 =  310
+VOLT0 =  318
 
 #position and resolution
 fbfile="tvservice -s"
@@ -56,12 +56,12 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5
 
 
 while True:
-	print read()
-	ret = read()
-	print warning
+	#print read()
+	ret = round(read() + 10)
+	#print ret
 	if ret < VOLT0:
 		#if status != 0:
-		print "status"
+		#print "status"
 		changeicon("0")
 		if CLIPS == 1:
 			if warning == 0:
