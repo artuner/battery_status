@@ -54,7 +54,6 @@ def changeicon(percent):
 
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
-
 while True:
 	ret = round(read() + 10)
 	#print ret
