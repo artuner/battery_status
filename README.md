@@ -19,7 +19,7 @@ sudo pip install pi-ina219
 
 ### Hardware part
 
-INA219 
+INA219 OR ARDUINO
 
 ### Software part
 
