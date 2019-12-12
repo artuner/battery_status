@@ -34,7 +34,7 @@ width = (int(resolution[0]) - dpi * 2)
 def read():
     ser = serial.Serial('/dev/ttyACM0', 9600)
     values = []
-    for i in range(1, 15):
+    for i in range(0, 15):
      values.append(float(ser.readline()))
     ser.close()
     return float(sum(values)) / max(len(values), 1)
