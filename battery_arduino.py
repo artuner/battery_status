@@ -19,11 +19,11 @@ CLIPS = 1
 REFRESH_RATE = 300
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 368
-VOLT75 = 352
-VOLT50 = 340
-VOLT25 = 326
-VOLT0 =  318
+VOLT100 = 375
+VOLT75 = 360
+VOLT50 = 345
+VOLT25 = 330
+VOLT0 =  322
 
 #position and resolution
 fbfile="tvservice -s"
