@@ -38,7 +38,7 @@ def read():
     ina = INA219(SHUNT_OHMS)
     ina.configure(ina.RANGE_16V,ina.GAIN_AUTO)
     values = []
-    for i in range(0, 15):
+    for i in range(1, 16):
       values.append(int(ina.voltage()*100))
     ina.sleep()
     return float(sum(values)) / max(len(values),1)
