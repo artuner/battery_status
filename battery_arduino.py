@@ -16,7 +16,7 @@ status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 1200
+REFRESH_RATE = 300
 VCC = 4.2
 VOLTFULL = 410
 VOLT100 = 368
@@ -32,9 +32,9 @@ dpi=36
 width = (int(resolution[0]) - dpi * 2)
 
 def read():
-    ser = serial.Serial('/dev/ttyACM0', 9600)
+    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     values = []
-    for i in range(1, 15):
+    for i in range(1, 16):
      values.append(float(ser.readline().strip(",\n\r")))
     ser.close()
     return float(sum(values)) / max(len(values), 1)
@@ -59,6 +59,7 @@ while True:
 	#print ret
 	if ret < VOLT0:
 		#if status != 0:
+		REFRESH_RATE = 100
 		changeicon("0")
 		if CLIPS == 1:
 			if warning == 0:
@@ -73,6 +74,7 @@ while True:
 				os.system("sleep 60 && sudo poweroff &")
 		status = 0
 	elif ret < VOLT25:
+		REFRESH_RATE = 300
 		if status != 25:
 			changeicon("25")
 			warning = 0
