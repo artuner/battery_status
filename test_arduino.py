@@ -9,7 +9,7 @@ import subprocess
 from subprocess import check_output
 import serial
 
-REFRESH_RATE = 1200
+REFRESH_RATE = 1
 
 def read():
     ser = serial.Serial('/dev/ttyACM0', 9600)
