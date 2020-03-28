@@ -1,15 +1,16 @@
 #!/usr/bin/python3
-#by SergioPoverony and etc
-#for INA219 battery status in gameboy pi mode
-#GPL2 and etc
+# based on the following:
+# https://github.com/joachimvenaas/gbzbatterymonitor
+# by SergioPoverony and etc
+# for INA219 battery status in gameboy pi mode
+# GPL2 and etc
+
 from time import sleep
 import os
 import re
 import subprocess
 from subprocess import check_output
 from ina219 import INA219, DeviceRangeError
-
-
 
 #Config
 warning = 0
@@ -26,7 +27,6 @@ VOLT75 = 352
 VOLT50 = 340
 VOLT25 = 326
 VOLT0 =  318
-
 
 #position and resolution
 fbfile="tvservice -s"
