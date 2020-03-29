@@ -59,7 +59,7 @@ while True:
 	#print ret
 	if ret < VOLT0:
 		#if status != 0:
-		REFRESH_RATE = 1
+		REFRESH_RATE = 1 
 		changeicon("0")
 		if CLIPS == 1:
 			if warning == 0:
