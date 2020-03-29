@@ -1,0 +1,10 @@
+[Unit]
+Description=Battery Monitoring by SergioPoverony
+ 
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/battery_status/battery_arduino.py
+Restart=on-abort
+ 
+[Install]
+WantedBy=multi-user.target
