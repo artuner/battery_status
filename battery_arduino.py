@@ -1,14 +1,11 @@
 
 #!/usr/bin/python3
-# based on the following:
-# https://github.com/joachimvenaas/gbzbatterymonitor
-# by SergioPoverony and etc
-# for Arduino 5V battery status in gameboy pi mode
-# GPL2 and etc
+#by SergioPoverony and etc
+#for Arduino 5V battery status in gameboy pi mode
+#GPL2 and etc
 from time import sleep
 import os
 import re
-import signal
 import subprocess
 from subprocess import check_output
 import serial
@@ -19,11 +16,11 @@ status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 300
+REFRESH_RATE = 1
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 390
-VOLT75 = 375
+VOLT100 = 375
+VOLT75 = 360
 VOLT50 = 345
 VOLT25 = 330
 VOLT0 =  322
@@ -38,15 +35,9 @@ def read():
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     values = []
     for i in range(1, 16):
-     try:
-      values.append(float(ser.readline().strip()))
-     except:
-      pass
+     values.append(float(ser.readline().strip(",\n\r")))
     ser.close()
-    a = float(sum(values)) / max(len(values), 1)
-    a = int(a)
-    if 200 < a < 500:
-     return round(a)
+    return float(sum(values)) / max(len(values), 1)
     exit()
 
 def changeicon(percent):
@@ -61,21 +52,14 @@ def changeicon(percent):
             killid = num
             os.system("sudo kill " + killid)
 
-def endProcess(signalnum=None, handler=None):
-    os.system("sudo killall pngview")
-    exit(0)
-
-signal.signal(signal.SIGTERM, endProcess)
-signal.signal(signal.SIGINT, endProcess)
-
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	ret = read()
+	ret = round(read() + 10)
 	#print ret
 	if ret < VOLT0:
 		#if status != 0:
-		REFRESH_RATE = 100
+		REFRESH_RATE = 1
 		changeicon("0")
 		if CLIPS == 1:
 			if warning == 0:
@@ -112,3 +96,4 @@ while True:
 			changeicon("FULL")
 		status = -1
 	sleep(REFRESH_RATE)
+
