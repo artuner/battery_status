@@ -1,8 +1,9 @@
-
-#!/usr/bin/python3
-#by SergioPoverony and etc
-#for Arduino 5V battery status in gameboy pi mode
-#GPL2 and etc
+#!/usr/bin/python
+# based on the following:
+# https://github.com/joachimvenaas/gbzbatterymonitor
+# by SergioPoverony and etc
+# for Arduino 5V battery status in gameboy pi mode
+# GPL2 and etc
 from time import sleep
 import os
 import re
@@ -16,13 +17,13 @@ status = 0
 PNGVIEWPATH = "/home/pi/battery_status"
 ICONPATH = "/home/pi/battery_status/icons"
 CLIPS = 1
-REFRESH_RATE = 1
+REFRESH_RATE = 600
 VCC = 4.2
 VOLTFULL = 410
-VOLT100 = 375
-VOLT75 = 360
-VOLT50 = 345
-VOLT25 = 330
+VOLT100 = 400
+VOLT75 = 380
+VOLT50 = 360
+VOLT25 = 340
 VOLT0 =  322
 
 #position and resolution
@@ -34,11 +35,17 @@ width = (int(resolution[0]) - dpi * 2)
 def read():
     ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
     values = []
-    for i in range(1, 16):
-     values.append(float(ser.readline().strip(",\n\r")))
+    for n in range(1, 8):
+     try:
+      values.append(float(ser.readline()))
+     except:
+      a = 2419.69
+      pass
     ser.close()
-    return float(sum(values)) / max(len(values), 1)
-    exit()
+    a = float(sum(values)) / max(len(values), 1)
+    a = int(a)
+    if 200 < a:
+     return round(a)
 
 def changeicon(percent):
     i = 0
@@ -55,23 +62,26 @@ def changeicon(percent):
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x " + str(width) + " -y 5 " + ICONPATH + "/blank.png &")
 
 while True:
-	ret = round(read() + 10)
+	ret = read()
 	#print ret
 	if ret < VOLT0:
 		#if status != 0:
-		REFRESH_RATE = 1 
+		REFRESH_RATE = 100
 		changeicon("0")
-		if CLIPS == 1:
-			if warning == 0:
-				warning = 1
-				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-			elif warning == 1:
-				warning = 2
-				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-			elif warning == 2:
-				os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
-				os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
-				os.system("sleep 60 && sudo poweroff &")
+		#if CLIPS == 1:
+		if warning == 0:
+			#print ret
+			warning = 1
+			os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+		elif warning == 1:
+			#print ret
+			warning = 2
+			os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+		elif warning == 2:
+			#print ret
+			os.system("/usr/bin/aplay " + ICONPATH + "/LowBattery.wav")
+			os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999" + " -x "+ str(int(resolution[0])/2-128)+ " -y " + str(int(resolution[1])/2-128) + " " + ICONPATH + "/alert-outline-red.png &")
+			os.system("sleep 60 && sudo poweroff &")
 		status = 0
 	elif ret < VOLT25:
 		REFRESH_RATE = 300
@@ -96,4 +106,3 @@ while True:
 			changeicon("FULL")
 		status = -1
 	sleep(REFRESH_RATE)
-
